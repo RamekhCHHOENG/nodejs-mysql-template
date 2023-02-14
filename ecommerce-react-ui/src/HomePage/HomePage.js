@@ -19,7 +19,7 @@ const HomePage = () => {
             <div className="collapse navbar-collapse">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <a className="nav-link" aria-current="page" href={'/'}>
+                  <a className="nav-link active" aria-current="page" href={'/'}>
                     ទំព័រដើម
                   </a>
                 </li>
@@ -30,7 +30,7 @@ const HomePage = () => {
                 </li>
                 <li className="nav-item">
                   <a
-                    className="nav-link active"
+                    className="nav-link"
                     href={'/customers'}
                     tabIndex="-1"
                     aria-disabled="true"
