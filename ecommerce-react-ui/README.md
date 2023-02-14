@@ -18,7 +18,7 @@ npm start
     └───HomePage
 ```
 
-## III. Config React routes
+## III. កំណត់រចនាសម្ព័ន្ធផ្លូវប្រតិកម្ម
 ```
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
