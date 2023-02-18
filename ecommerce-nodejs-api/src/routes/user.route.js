@@ -1,23 +1,11 @@
+const UserController = require('../controllers/user.controller');
+
 const user = (app) => {
-    app.get(`/api/users`, (req, res) => {
-        res.send(['Chamrong']);
-    });
-
-    app.get(`/api/users/1`, (req, res) => {
-        res.send('Chamrong');
-    });
-
-    app.delete(`/api/users/1/delete`, (req, res) => {
-        res.send(`Hard delete`)
-    });
-
-    app.put(`/api/users/1/update`, (req, res) => {
-        res.send(`Update`)
-    });
-
-    app.patch(`/api/users/1/delete`, (req, res) => {
-        res.send(`Soft delete`)
-    });
+    app.get(`/api/users`, UserController.get);
+    app.get(`/api/users/1`, UserController.findOne);
+    app.delete(`/api/users/1/delete`, UserController.remove);
+    app.put(`/api/users/1/update`, UserController.update);
+    app.patch(`/api/users/1/delete`, UserController.deactivate);
 }
 
 module.exports = user;

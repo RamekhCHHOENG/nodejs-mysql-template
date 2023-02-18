@@ -1,23 +1,11 @@
+const CustomerController = require('../controllers/customer.controller');
+
 const customer = (app) => {
-    app.get(`/api/customers`, (req, res) => {
-       res.send(['Chamrong']);
-    });
-
-    app.get(`/api/customers/1`, (req, res) => {
-        res.send('Chamrong');
-    });
-
-    app.delete(`/api/customers/1/delete`, (req, res) => {
-        res.send(`Hard delete`)
-    });
-
-    app.put(`/api/customers/1/update`, (req, res) => {
-        res.send(`Update`)
-    });
-
-    app.patch(`/api/customers/1/delete`, (req, res) => {
-        res.send(`Soft delete`)
-    });
+    app.get(`/api/customers`, CustomerController.get);
+    app.get(`/api/customers/1`, CustomerController.findOne);
+    app.delete(`/api/customers/1/delete`, CustomerController.remove);
+    app.put(`/api/customers/1/update`, CustomerController.update);
+    app.patch(`/api/customers/1/delete`, CustomerController.deactivate);
 }
 
 module.exports = customer;
