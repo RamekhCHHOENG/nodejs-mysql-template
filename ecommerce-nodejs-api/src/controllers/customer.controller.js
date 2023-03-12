@@ -1,5 +1,12 @@
+const db = require('../config/db.config');
+
 const get = (req, res) => {
-    res.send( `Get all.`);
+    db.query('SELECT * FROM customers', (err, result) => {
+        res.json({
+            content: result,
+            total: result.length,
+        })
+    });
 }
 
 const findOne = (req, res) => {
