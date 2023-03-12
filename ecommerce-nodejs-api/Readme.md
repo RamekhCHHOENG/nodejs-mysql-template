@@ -9,3 +9,13 @@ npm init
 ```
 npm install express
 ```
+
+## III. តម្លើង Nodemon
+```
+npm install nodemon
+```
+
+## IV. តម្លើង MySQL
+```
+npm install mysql
+```

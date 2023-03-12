@@ -1,8 +1,21 @@
 const express = require('express');
+const mysql = require("mysql");
 const app = express();
 
+const db = mysql.createConnection({
+   host: 'localhost',
+   user: 'root',
+   password: '',
+   database: 'online_store',
+});
+
 app.get('/', (req, res) => {
-   res.send(`សូមស្វាគមន៍មកកាន់ទំព័រដើម ❤`);
+   db.query('SELECT * FROM customers', (err, result) => {
+      res.json({
+         content: result,
+         total: result.length,
+      })
+   })
 });
 
 require('./src/routes/customer.route')(app);
