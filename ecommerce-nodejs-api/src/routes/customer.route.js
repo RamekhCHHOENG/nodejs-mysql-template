@@ -2,6 +2,7 @@ const CustomerController = require('../controllers/customer.controller');
 
 const customer = (app) => {
     app.get(`/api/customers`, CustomerController.get);
+    app.post(`/api/customers`, CustomerController.create);
     app.get(`/api/customers/:id`, CustomerController.findOne);
     app.delete(`/api/customers/1/delete`, CustomerController.remove);
     app.put(`/api/customers/1/update`, CustomerController.update);

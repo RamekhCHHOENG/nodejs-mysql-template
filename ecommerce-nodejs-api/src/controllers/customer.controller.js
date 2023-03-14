@@ -1,4 +1,5 @@
 const db = require('../config/db.config');
+const {json} = require("express");
 
 const get = (req, res) => {
     const query = `SELECT * FROM customers;`;
@@ -13,7 +14,10 @@ const get = (req, res) => {
 
 const findOne = (req, res, next) => {
     if (typeof req.params.id !== 'Number') {
-        return next(new NotFoundErr)
+        res.json({
+            error: true,
+            message: `Customer with id: ${req.params.id} not found.`,
+        })
     }
     const query = `
         SELECT * FROM customers
@@ -29,7 +33,23 @@ const findOne = (req, res, next) => {
 }
 
 const create = (req, res) => {
-    res.send(`Create users`);
+    console.log({body: req.body})
+    const { first_name, last_name, gender, dob, tel, email, is_active } = req.body;
+    const sql =  "INSERT INTO `customers`(first_name, last_name, gender, dob, tel, email, is_active) VALUES (?,?,?,?,?,?,?)";
+
+    db.query(sql, [first_name, last_name, gender, dob, tel, email, is_active], (error, result) => {
+        if (error) {
+            res.json({
+                error: true,
+                message: error,
+            });
+        } else {
+            res.json({
+                status: 200,
+                message: `A customer has been added successfully with id ${result.insertId}.`,
+            });
+        }
+    })
 }
 
 const update = (req, res) => {
