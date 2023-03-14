@@ -1,7 +1,9 @@
 const db = require('../config/db.config');
 
 const get = (req, res) => {
-    db.query('SELECT * FROM customers', (err, result) => {
+    const query = `SELECT * FROM customers;`;
+
+    db.query(query, (err, result) => {
         res.json({
             content: result,
             total: result.length,
@@ -9,8 +11,21 @@ const get = (req, res) => {
     });
 }
 
-const findOne = (req, res) => {
-    res.send(`Find one`) ;
+const findOne = (req, res, next) => {
+    if (typeof req.params.id !== 'Number') {
+        return next(new NotFoundErr)
+    }
+    const query = `
+        SELECT * FROM customers
+        WHERE customers.id = ${req.params.id};
+    `;
+
+    db.query(query, (err, result) => {
+        res.json({
+            content: result,
+            total: result.length,
+        })
+    });
 }
 
 const create = (req, res) => {
