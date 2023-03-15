@@ -1,6 +1,6 @@
 const db = require('../config/db.config');
 
-const get = (req, res) => {
+const findAll = (req, res) => {
     const query = `SELECT * FROM customers;`;
 
     db.query(query, (err, result) => {
@@ -137,11 +137,33 @@ const disable = (req, res) => {
 }
 
 const remove = (req, res) => {
-    res.send(`remove`);
+    if (typeof JSON.parse(req.params.id) !== 'number') {
+        res.json({
+            error: true,
+            message: `Customer with id: ${req.params.id} not found.`,
+        });
+    }
+
+    const id = req.params.id;
+    const sql =  `DELETE FROM customers WHERE ${id}`;
+
+    db.query(sql, (error, result) => {
+        if (error) {
+            res.json({
+                error: true,
+                message: error,
+            });
+        } else {
+            res.json({
+                status: 200,
+                message: `The customer has id: ${id} has been remove from system.`,
+            });
+        }
+    })
 }
 
 module.exports = {
-    get,
+    findAll,
     findOne,
     create,
     update,
