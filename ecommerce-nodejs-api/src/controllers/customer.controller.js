@@ -37,7 +37,7 @@ const findOne = (req, res, next) => {
 
 const create = (req, res) => {
     const { first_name, last_name, gender, dob, tel, email, is_active } = req.body;
-    const sql =  "INSERT INTO `customers`(first_name, last_name, gender, dob, tel, email, is_active) VALUES (?,?,?,?,?,?,?)";
+    const sql =  `INSERT INTO customers(first_name, last_name, gender, dob, tel, email, is_active) VALUES (?,?,?,?,?,?,?)`;
 
     db.query(sql, [first_name, last_name, gender, dob, tel, email, is_active], (error, result) => {
         if (error) {
@@ -65,7 +65,7 @@ const update = (req, res) => {
 
     const { first_name, last_name, gender, dob, tel, email, is_active } = req.body;
     const id = req.params.id;
-    const sql =  `UPDATE \`customers\` SET \`first_name\`=?, \`last_name\`=?, \`gender\`=?, \`dob\`=?, \`email\`=?, \`tel\`=?, \`is_active\`=? WHERE ${id}`;
+    const sql =  `UPDATE customers SET first_name=?, last_name=?, gender=?, dob=?, email=?, tel=?, is_active=? WHERE ${id}`;
 
     db.query(sql, [first_name, last_name, gender, dob, tel, email, is_active], (error, result) => {
         if (error) {
@@ -83,11 +83,57 @@ const update = (req, res) => {
 }
 
 const enable = (req, res) => {
-    res.send(`deactivate`);
+    if (typeof JSON.parse(req.params.id) !== 'number') {
+        res.json({
+            error: true,
+            message: `Customer with id: ${req.params.id} not found.`,
+        });
+    }
+
+    const { first_name, last_name, gender, dob, tel, email, is_active } = req.body;
+    const id = req.params.id;
+    const sql =  `UPDATE Customers SET is_active = '1' WHERE ${id}`;
+
+    db.query(sql, [first_name, last_name, gender, dob, tel, email, is_active], (error, result) => {
+        if (error) {
+            res.json({
+                error: true,
+                message: error,
+            });
+        } else {
+            res.json({
+                status: 200,
+                message: `The customer has id: ${id} has been enable in system.`,
+            });
+        }
+    })
 }
 
 const disable = (req, res) => {
-    res.send(`deactivate`);
+    if (typeof JSON.parse(req.params.id) !== 'number') {
+        res.json({
+            error: true,
+            message: `Customer with id: ${req.params.id} not found.`,
+        });
+    }
+
+    const { first_name, last_name, gender, dob, tel, email, is_active } = req.body;
+    const id = req.params.id;
+    const sql =  `UPDATE Customers SET is_active = '0' WHERE ${id}`;
+
+    db.query(sql, [first_name, last_name, gender, dob, tel, email, is_active], (error, result) => {
+        if (error) {
+            res.json({
+                error: true,
+                message: error,
+            });
+        } else {
+            res.json({
+                status: 200,
+                message: `The customer has id: ${id} has been enable in system.`,
+            });
+        }
+    })
 }
 
 const remove = (req, res) => {
