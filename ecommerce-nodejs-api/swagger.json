@@ -230,11 +230,11 @@
           "type": "integer",
           "uniqueItems": true
         },
-        "firstName": {
+        "first_name": {
           "type": "string",
           "example": "Chamrong"
         },
-        "lastName": {
+        "last_name": {
           "type": "string",
           "example": "Thor"
         },
@@ -261,7 +261,7 @@
           "format": "email",
           "example": "meas.pech@onekh.info"
         },
-        "isActive": {
+        "is_active": {
           "type": "boolean"
         }
       }
@@ -269,11 +269,11 @@
     "CustomerRequest": {
       "required": [],
       "properties": {
-        "firstName": {
+        "first_name": {
           "type": "string",
           "example": "Chamrong"
         },
-        "lastName": {
+        "last_name": {
           "type": "string",
           "example": "Thor"
         },
@@ -300,7 +300,7 @@
           "format": "email",
           "example": "meas.pech@onekh.info"
         },
-        "isActive": {
+        "is_active": {
           "type": "boolean"
         }
       }

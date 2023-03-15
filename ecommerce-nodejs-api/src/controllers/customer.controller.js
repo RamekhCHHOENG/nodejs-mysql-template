@@ -36,7 +36,6 @@ const findOne = (req, res, next) => {
 }
 
 const create = (req, res) => {
-    console.log({body: req.body})
     const { first_name, last_name, gender, dob, tel, email, is_active } = req.body;
     const sql =  "INSERT INTO `customers`(first_name, last_name, gender, dob, tel, email, is_active) VALUES (?,?,?,?,?,?,?)";
 
@@ -56,7 +55,31 @@ const create = (req, res) => {
 }
 
 const update = (req, res) => {
-    res.send(`update`);
+
+    if (typeof JSON.parse(req.params.id) !== 'number') {
+        res.json({
+            error: true,
+            message: `Customer with id: ${req.params.id} not found.`,
+        });
+    }
+
+    const { first_name, last_name, gender, dob, tel, email, is_active } = req.body;
+    const id = req.params.id;
+    const sql =  `UPDATE \`customers\` SET \`first_name\`=?, \`last_name\`=?, \`gender\`=?, \`dob\`=?, \`email\`=?, \`tel\`=?, \`is_active\`=? WHERE ${id}`;
+
+    db.query(sql, [first_name, last_name, gender, dob, tel, email, is_active], (error, result) => {
+        if (error) {
+            res.json({
+                error: true,
+                message: error,
+            });
+        } else {
+            res.json({
+                status: 200,
+                message: `A customer has been updated successfully with id ${id}.`,
+            });
+        }
+    })
 }
 
 const enable = (req, res) => {
