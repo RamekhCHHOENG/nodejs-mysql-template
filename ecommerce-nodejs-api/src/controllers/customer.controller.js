@@ -13,22 +13,26 @@ const get = (req, res) => {
 }
 
 const findOne = (req, res, next) => {
-    if (typeof req.params.id !== 'Number') {
+    if (typeof JSON.parse(req.params.id) !== 'number') {
         res.json({
             error: true,
             message: `Customer with id: ${req.params.id} not found.`,
-        })
+        });
     }
     const query = `
         SELECT * FROM customers
         WHERE customers.id = ${req.params.id};
     `;
 
-    db.query(query, (err, result) => {
-        res.json({
-            content: result,
-            total: result.length,
-        })
+    db.query(query, (error, result) => {
+        if (error || !result.length) {
+            res.json({
+                error: true,
+                message: `Customer with id: ${req.params.id} not found.`,
+            });
+        } else {
+            res.json(result[0]);
+        }
     });
 }
 
