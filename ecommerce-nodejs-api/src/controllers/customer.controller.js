@@ -1,5 +1,4 @@
 const db = require('../config/db.config');
-const {json} = require("express");
 
 const get = (req, res) => {
     const query = `SELECT * FROM customers;`;
@@ -60,12 +59,16 @@ const update = (req, res) => {
     res.send(`update`);
 }
 
-const remove = (req, res) => {
-    res.send(`remove`);
+const enable = (req, res) => {
+    res.send(`deactivate`);
 }
 
-const deactivate = (req, res) => {
+const disable = (req, res) => {
     res.send(`deactivate`);
+}
+
+const remove = (req, res) => {
+    res.send(`remove`);
 }
 
 module.exports = {
@@ -73,6 +76,7 @@ module.exports = {
     findOne,
     create,
     update,
+    enable,
+    disable,
     remove,
-    deactivate,
 }

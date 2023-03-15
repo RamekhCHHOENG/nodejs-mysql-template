@@ -20,20 +20,26 @@
   "paths": {
     "/api/customers": {
       "get": {
-        "tags": ["Customers"],
+        "tags": [
+          "Customers"
+        ],
         "summary": "Get all customers in system",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Customers"
+              "$ref": "#/definitions/CustomerResponse"
             }
           }
         }
       },
       "post": {
-        "tags": ["Customers"],
+        "tags": [
+          "Customers"
+        ],
         "summary": "Create a new customer in system",
         "parameters": [
           {
@@ -45,12 +51,14 @@
             }
           }
         ],
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Customers"
+              "$ref": "#/definitions/CustomerResponse"
             }
           }
         }
@@ -58,7 +66,9 @@
     },
     "/api/customers/{id}": {
       "get": {
-        "tags": ["Customers"],
+        "tags": [
+          "Customers"
+        ],
         "parameters": [
           {
             "in": "path",
@@ -71,12 +81,141 @@
           }
         ],
         "summary": "Get all customers in system",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Customers"
+              "$ref": "#/definitions/CustomerResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Customers"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": "true",
+            "schema": {
+              "type": "integer",
+              "example": "123"
+            }
+          },
+          {
+            "name": "Update user",
+            "in": "body",
+            "description": "To update an existing customer in system",
+            "schema": {
+              "$ref": "#/definitions/CustomerRequest"
+            }
+          }
+        ],
+        "summary": "Update an existing customer in system",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CustomerResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Customers"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": "true",
+            "schema": {
+              "type": "integer",
+              "example": "123"
+            }
+          }
+        ],
+        "summary": "Delete a customer in system",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string",
+              "example": "The customer has id: {id} has been remove from system."
+            }
+          }
+        }
+      }
+    },
+    "/api/customers/{id}/enable": {
+      "patch": {
+        "tags": [
+          "Customers"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": "true",
+            "schema": {
+              "type": "integer",
+              "example": "123"
+            }
+          }
+        ],
+        "summary": "Enable a disabled customer in system",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string",
+              "example": "The customer has id: {id} has been enable in system."
+            }
+          }
+        }
+      }
+    },
+    "/api/customers/{id}/disable": {
+      "patch": {
+        "tags": [
+          "Customers"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": "true",
+            "schema": {
+              "type": "integer",
+              "example": "123"
+            }
+          }
+        ],
+        "summary": "Disable an enabled customer in system",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string",
+              "example": "The customer has id: {id} has been disable in system."
             }
           }
         }
@@ -84,18 +223,18 @@
     }
   },
   "definitions": {
-    "Customers": {
+    "CustomerResponse": {
       "required": [],
       "properties": {
         "id": {
           "type": "integer",
           "uniqueItems": true
         },
-        "first_name": {
+        "firstName": {
           "type": "string",
           "example": "Chamrong"
         },
-        "last_name": {
+        "lastName": {
           "type": "string",
           "example": "Thor"
         },
@@ -122,7 +261,7 @@
           "format": "email",
           "example": "meas.pech@onekh.info"
         },
-        "is_active": {
+        "isActive": {
           "type": "boolean"
         }
       }
@@ -130,11 +269,11 @@
     "CustomerRequest": {
       "required": [],
       "properties": {
-        "first_name": {
+        "firstName": {
           "type": "string",
           "example": "Chamrong"
         },
-        "last_name": {
+        "lastName": {
           "type": "string",
           "example": "Thor"
         },
@@ -161,13 +300,19 @@
           "format": "email",
           "example": "meas.pech@onekh.info"
         },
-        "is_active": {
+        "isActive": {
           "type": "boolean"
         }
       }
     }
   },
-  "schemes": ["http"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"]
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ]
 }

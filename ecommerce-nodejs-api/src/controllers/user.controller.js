@@ -18,7 +18,11 @@ const remove = (req, res) => {
     res.send(`remove`);
 }
 
-const deactivate = (req, res) => {
+const enable = (req, res) => {
+    res.send(`deactivate`);
+}
+
+const disable = (req, res) => {
     res.send(`deactivate`);
 }
 
@@ -28,5 +32,6 @@ module.exports = {
     create,
     update,
     remove,
-    deactivate,
+    enable,
+    disable,
 }
